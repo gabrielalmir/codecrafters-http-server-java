@@ -1,2 +1,2 @@
 # 1. Bind a port
-GET localhost:4221
+GET http://localhost:4221
