@@ -13,7 +13,7 @@ public class HttpServer {
     public void start() {
         try (var serverSocket = new ServerSocket(port)) {
             serverSocket.setReuseAddress(true);
-            while (true) { handleRequest(serverSocket); }
+            while (!Thread.currentThread().isInterrupted()) { handleRequest(serverSocket); }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
