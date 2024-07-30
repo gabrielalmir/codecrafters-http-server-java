@@ -14,9 +14,10 @@ public class HttpResponse {
         this.statusCodeMessages.put("404", "Not Found");
     }
 
-    public void send(String string, int statusCode) throws IOException {
+    public void send(String message, int statusCode) throws IOException {
         var status = statusCodeMessages.get(String.valueOf(statusCode));
-        var output = "HTTP/1.1 %d %s %s\r\n\r\n".formatted(statusCode, status, string);
+        var string = message.isEmpty() ? "" : " " + message;
+        var output = "HTTP/1.1 %d %s%s\r\n\r\n".formatted(statusCode, status, string);
         outputStream.write(output.getBytes());
         outputStream.flush();
     }
