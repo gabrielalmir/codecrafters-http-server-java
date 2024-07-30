@@ -1,3 +1,5 @@
+package http;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,13 +26,17 @@ public class HttpServer {
             System.out.println("Accepted new connection");
 
             var inputStream = socket.getInputStream();
-            var reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            System.out.println(reader.readLine());
+            var httpRequest = new HttpRequest(inputStream);
+            var request = httpRequest.parseRequest();
 
             var outputStream = socket.getOutputStream();
-            outputStream.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-            outputStream.flush();
+            var response = new HttpResponse(outputStream);
+
+            if (request.getUrl().equals("/")) {
+                response.send("", 200);
+            } else {
+                response.send("", 404);
+            }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
