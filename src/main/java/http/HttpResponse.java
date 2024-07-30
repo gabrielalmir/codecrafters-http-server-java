@@ -15,10 +15,30 @@ public class HttpResponse {
     }
 
     public void send(String message, int statusCode) throws IOException {
-        var status = statusCodeMessages.get(String.valueOf(statusCode));
-        var string = message.isEmpty() ? "" : " " + message;
-        var output = "HTTP/1.1 %d %s%s\r\n\r\n".formatted(statusCode, status, string);
+        var head = this.getHttpStatus(statusCode);
+        var body = this.getResponseBody(message, "text/plain");
+        var output = "%s%s".formatted(head, body);
+
         outputStream.write(output.getBytes());
         outputStream.flush();
+    }
+
+    private String getHttpStatus(int statusCode) {
+        var status = this.getStatusCode(statusCode);
+        return "HTTP/1.1 %d %s\r\n".formatted(statusCode, status);
+    }
+
+    private String getStatusCode(int statusCode) {
+        var status = statusCodeMessages.get(String.valueOf(statusCode));
+        return status == null ? "" : status;
+    }
+
+    private String getResponseBody(String message, String contentType) {
+        if (message == null || message.isEmpty()) {
+            return "\r\n\r\n";
+        }
+
+        var contentLength = "Content-Length: %s".formatted(message.length());
+        return "Content-Type: %s\r\n%s\r\n\r\n%s".formatted(contentType, contentLength, message);
     }
 }

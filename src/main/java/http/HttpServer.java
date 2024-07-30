@@ -32,6 +32,9 @@ public class HttpServer {
 
             if (request.getUrl().equals("/")) {
                 response.send("", 200);
+            } else if (request.getUrl().startsWith("/echo/")) {
+                var queryParam = request.getUrl().substring("/echo/".length());
+                response.send(queryParam, 200);
             } else {
                 response.send("", 404);
             }

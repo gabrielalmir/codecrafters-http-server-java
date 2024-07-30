@@ -1,2 +1,5 @@
-# 1. Bind a port
-GET http://localhost:4221/1
+### 1. Bind a port
+GET http://localhost:4221/
+
+### 2. Respond with body
+GET http://localhost:4221/echo/abc
