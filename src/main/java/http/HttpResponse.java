@@ -16,7 +16,7 @@ public class HttpResponse {
 
     public void send(String string, int statusCode) throws IOException {
         var status = statusCodeMessages.get(String.valueOf(statusCode));
-        var output = "HTTP/1.1 %d %s %s\r\n\n".formatted(statusCode, status, string);
+        var output = "HTTP/1.1 %d %s %s\r\n\r\n".formatted(statusCode, status, string);
         outputStream.write(output.getBytes());
         outputStream.flush();
     }
