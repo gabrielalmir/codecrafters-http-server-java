@@ -3,3 +3,6 @@ GET http://localhost:4221/
 
 ### 2. Respond with body
 GET http://localhost:4221/echo/abc
+
+### 3. Should Respond Not Found
+GET http://localhost:4221/abc

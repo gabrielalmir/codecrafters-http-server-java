@@ -34,11 +34,6 @@ public class HttpResponse {
     }
 
     private String getResponseBody(String message, String contentType) {
-        if (message == null || message.isEmpty()) {
-            return "\r\n\r\n";
-        }
-
-        var contentLength = "Content-Length: %s".formatted(message.length());
-        return "Content-Type: %s\r\n%s\r\n\r\n%s".formatted(contentType, contentLength, message);
+        return "Content-Type: %s\r\nContent-Length: %s\r\n\r\n%s".formatted(contentType, message.length(), message);
     }
 }
