@@ -1,4 +1,4 @@
-package http.handler;
+package br.com.gabrielalmir.http.handler;
 
 import java.io.IOException;
 import java.net.ServerSocket;

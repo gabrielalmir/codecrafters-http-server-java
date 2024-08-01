@@ -1,11 +1,14 @@
-package http;
+package br.com.gabrielalmir.http;
 
-import http.handler.RequestHandler;
-import http.socket.ServerSocketFactory;
+import br.com.gabrielalmir.http.socket.ServerSocketFactory;
+import br.com.gabrielalmir.http.handler.RequestHandler;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HttpServer {
+    private final Logger logger;
     private final int port;
     private final ServerSocketFactory socketFactory;
     private final RequestHandler requestHandler;
@@ -16,6 +19,7 @@ public class HttpServer {
         this.socketFactory = socketFactory;
         this.requestHandler = requestHandler;
         this.running = true;
+        this.logger = Logger.getLogger(this.getClass().getName());
     }
 
     public void start() {
@@ -26,7 +30,7 @@ public class HttpServer {
                 requestHandler.handle(serverSocket);
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 }

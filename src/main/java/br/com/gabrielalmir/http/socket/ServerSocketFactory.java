@@ -1,4 +1,4 @@
-package http.socket;
+package br.com.gabrielalmir.http.socket;
 
 import java.io.IOException;
 import java.net.ServerSocket;

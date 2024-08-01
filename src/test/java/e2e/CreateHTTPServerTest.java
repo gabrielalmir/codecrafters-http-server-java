@@ -1,8 +1,8 @@
 package e2e;
 
-import http.HttpServer;
-import http.handler.ApplicationHandler;
-import http.socket.DefaultServerSocketFactory;
+import br.com.gabrielalmir.http.HttpServer;
+import br.com.gabrielalmir.http.handler.ApplicationHandler;
+import br.com.gabrielalmir.http.socket.DefaultServerSocketFactory;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

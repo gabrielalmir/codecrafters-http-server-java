@@ -1,17 +1,21 @@
-package http.handler;
+package br.com.gabrielalmir.http.handler;
 
-import http.HttpRequest;
-import http.HttpResponse;
+import br.com.gabrielalmir.http.HttpRequest;
+import br.com.gabrielalmir.http.HttpResponse;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ApplicationHandler implements RequestHandler {
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
+
     @Override
     public void handle(ServerSocket serverSocket) throws IOException {
         var socket = serverSocket.accept();
 
-        System.out.println("Accepted new connection");
+        logger.log(Level.INFO, "Accepted new connection");
 
         var inputStream = socket.getInputStream();
         var httpRequest = new HttpRequest(inputStream);

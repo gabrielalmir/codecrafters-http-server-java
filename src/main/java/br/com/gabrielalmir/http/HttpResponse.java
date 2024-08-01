@@ -1,4 +1,4 @@
-package http;
+package br.com.gabrielalmir.http;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,7 +25,7 @@ public class HttpResponse {
 
     private String getHttpStatus(int statusCode) {
         var status = this.getStatusCode(statusCode);
-        return "HTTP/1.1 %d %s\r\n".formatted(statusCode, status);
+        return "HTTP/1.1 %d %s%n".formatted(statusCode, status);
     }
 
     private String getStatusCode(int statusCode) {
@@ -34,6 +34,6 @@ public class HttpResponse {
     }
 
     private String getResponseBody(String message, String contentType) {
-        return "Content-Type: %s\r\nContent-Length: %s\r\n\r\n%s".formatted(contentType, message.length(), message);
+        return "Content-Type: %s%nContent-Length: %s%n%n%s".formatted(contentType, message.length(), message);
     }
 }
