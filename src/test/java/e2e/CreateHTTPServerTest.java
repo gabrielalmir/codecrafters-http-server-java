@@ -14,17 +14,16 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateHTTPServerTest {
+class CreateHTTPServerTest {
     private Thread serverThread;
 
     @BeforeEach
-    void setUp() throws InterruptedException {
+    void setUp() {
         var requestHandler = new ApplicationHandler();
         var serverSocketFactory = new DefaultServerSocketFactory();
         var server = new HttpServer(8080, serverSocketFactory, requestHandler);
         serverThread = new Thread(server::start);
         serverThread.start();
-        Thread.sleep(500);
         System.out.println("HTTP Server started");
     }
 
@@ -40,7 +39,7 @@ public class CreateHTTPServerTest {
         var connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         var responseCode = connection.getResponseCode();
-        assert(responseCode == HttpURLConnection.HTTP_OK);
+        Assertions.assertEquals(200, responseCode);
     }
 
     @Test
@@ -49,7 +48,7 @@ public class CreateHTTPServerTest {
         var connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         var responseCode = connection.getResponseCode();
-        assert(responseCode == HttpURLConnection.HTTP_NOT_FOUND);
+        Assertions.assertEquals(404, responseCode);
     }
 
     @Test
@@ -60,6 +59,6 @@ public class CreateHTTPServerTest {
         var responseCode = connection.getResponseCode();
         assert(responseCode == HttpURLConnection.HTTP_OK);
         var responseBody = new String(connection.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-        assert(responseBody.equals("abc"));
+        Assertions.assertEquals("abc", responseBody);
     }
 }
