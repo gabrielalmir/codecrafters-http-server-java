@@ -23,7 +23,6 @@ public class HttpServer {
             serverSocket.setReuseAddress(true);
             while (running) {
                 running = !Thread.currentThread().isInterrupted();
-                System.out.println("Waiting for connection...");
                 requestHandler.handle(serverSocket);
             }
         } catch (IOException e) {

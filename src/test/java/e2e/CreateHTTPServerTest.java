@@ -15,10 +15,10 @@ import java.nio.charset.StandardCharsets;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateHTTPServerTest {
-    private static Thread serverThread;
+    private Thread serverThread;
 
-    @BeforeAll
-    static void setUp() throws InterruptedException {
+    @BeforeEach
+    void setUp() throws InterruptedException {
         var requestHandler = new ApplicationHandler();
         var serverSocketFactory = new DefaultServerSocketFactory();
         var server = new HttpServer(8080, serverSocketFactory, requestHandler);
@@ -28,8 +28,8 @@ public class CreateHTTPServerTest {
         System.out.println("HTTP Server started");
     }
 
-    @AfterAll
-    static void tearDown() {
+    @AfterEach
+    void tearDown() {
         System.out.println("HTTP Server stopped");
         serverThread.interrupt();
     }
